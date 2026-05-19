@@ -41,7 +41,7 @@ function Navbar() {
   return (
     <nav className="bg-gray-900 text-white shadow-md px-6 py-4 flex justify-between items-center sticky top-0 z-50 border-b border-gray-800">
       <div className="flex items-center gap-3">
-        <Link to="/" className="text-2xl font-extrabold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
+        <Link to="/" className="text-2xl font-extrabold bg-linear-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
           NGOChain
         </Link>
         <span className="text-xs bg-gray-800 text-teal-300 border border-teal-500/30 px-2 py-0.5 rounded-full font-mono">
@@ -92,7 +92,7 @@ function Navbar() {
       </div>
 
       {showWalletModal && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[100] backdrop-blur-md">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-100 backdrop-blur-md">
           <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl relative text-white">
             <button 
               onClick={() => setShowWalletModal(false)}

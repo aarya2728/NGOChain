@@ -18,7 +18,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-950 flex flex-col text-white">
         <Navbar />
-        <main className="flex-grow">
+        <main className="grow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/ngos" element={<NGOList />} />
