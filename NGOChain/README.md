@@ -31,10 +31,144 @@
 
 ```text
 NGOChain/
-├── contracts/          # Hardhat smart contract project (NGOFund.sol)
-├── go-backend/         # Go REST API server, handlers, models, and routes
-└── frontend/           # React + Vite DApp, components, pages, and Web3 utils
+├── contracts/               # Hardhat Smart Contract Environment
+│   ├── contracts/
+│   │   └── NGOFund.sol      # Core Solidity Smart Contract
+│   ├── scripts/
+│   │   └── deploy.js        # Deployment script for local/testnet
+│   └── hardhat.config.js    # Hardhat configuration (Networks, Compilers)
+│
+├── go-backend/              # High-Performance Go REST API
+│   ├── database/            # MongoDB connection setup
+│   ├── handlers/            # Request handlers (Controllers)
+│   │   ├── analytics.go     # Dashboard metrics & aggregation
+│   │   ├── auth.go          # JWT Login & Registration
+│   │   ├── donations.go     # Off-chain donation sync
+│   │   ├── ngo.go           # NGO profiles and whitelisting
+│   │   └── volunteers.go    # Volunteer management
+│   ├── models/              # BSON/JSON Data schemas (User, NGO, etc.)
+│   ├── routes/              # Gin router definitions
+│   └── main.go              # Entry point for the Go server
+│
+├── frontend/                # React 19 + Vite Frontend App
+│   ├── src/
+│   │   ├── components/      # Reusable UI components
+│   │   │   └── Navbar.jsx   # Top navigation & Wallet connect button
+│   │   ├── pages/           # Application views
+│   │   │   ├── Admin.jsx    # Admin dashboard for whitelisting NGOs
+│   │   │   ├── Dashboard.jsx# NGO dashboard for tracking funds
+│   │   │   ├── Donate.jsx   # Donation interface for users
+│   │   │   ├── Home.jsx     # Landing page
+│   │   │   ├── Login.jsx    # User authentication
+│   │   │   └── ...          # Other views (NGOList, Transactions, etc.)
+│   │   ├── utils/           # Web3 & API helpers
+│   │   ├── App.jsx          # Main React router
+│   │   └── main.jsx         # React DOM entry point
+│   ├── package.json         # Frontend dependencies
+│   ├── tailwind.config.js   # Tailwind CSS styling configuration
+│   └── vite.config.js       # Vite bundler settings
+│
+└── README.md                # Project documentation
 ```
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    subgraph Frontend ["React UI (Vite)"]
+        UI[User Interface]
+        W3[Web3 / Ethers.js]
+        API_C[Axios API Client]
+    end
+
+    subgraph Blockchain ["Ethereum Network"]
+        SC[NGOFund Smart Contract]
+        Metamask[MetaMask Wallet]
+    end
+
+    subgraph Backend ["Go API Server"]
+        Router[Gin Router]
+        Handlers[Auth & NGO Handlers]
+    end
+
+    subgraph Database ["MongoDB"]
+        Collections[("Collections: Users, NGOs, Donations")]
+    end
+
+    UI --> |Browser Extension| Metamask
+    Metamask <--> |Sign & Send Tx| SC
+    W3 <--> |Read Events| SC
+    UI <--> |REST API Calls| API_C
+    API_C <--> |JSON Data| Router
+    Router --> Handlers
+    Handlers <--> Collections
+```
+
+---
+
+## 🗄️ Entity-Relationship Diagram (ERD)
+
+```mermaid
+erDiagram
+    USER {
+        ObjectId id PK
+        string name
+        string email
+        string passwordHash
+        string role "User, NGO, Admin"
+        string walletAddress
+        date createdAt
+    }
+    NGO {
+        ObjectId id PK
+        string name
+        string type
+        string registrationNumber
+        string walletAddress
+        string bankAccount
+        string ifscCode
+        string smartContractAddress
+        string address
+        string contact
+        string description
+        boolean isVerified
+        float totalDonations
+        date createdAt
+    }
+    DONATION_RECORD {
+        ObjectId id PK
+        string donor "Wallet Address"
+        string ngoWallet "Wallet Address"
+        string amount
+        string cause
+        string txHash
+        date timestamp
+    }
+    VOLUNTEER {
+        ObjectId id PK
+        string name
+        string email
+        string phone
+        string interestArea
+        date createdAt
+    }
+
+    USER ||--o{ DONATION_RECORD : makes
+    NGO ||--o{ DONATION_RECORD : receives
+    NGO ||--o{ VOLUNTEER : assigns
+```
+
+---
+
+## 📸 Application Previews
+
+### Platform Dashboard (Dark Mode)
+![Dashboard View](./assets/dashboard.png)
+
+### NGO Listing & Donation (Light Mode)
+![Donor View](./assets/donor_page.png)
 
 ---
 
