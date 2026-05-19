@@ -165,10 +165,12 @@ erDiagram
 ## 📸 Application Previews
 
 ### Platform Dashboard (Dark Mode)
-![Dashboard View](./assets/dashboard.png)
+
+![Dashboard View](./assets/Screenshot%202026-05-19%20193710.png)
 
 ### NGO Listing & Donation (Light Mode)
-![Donor View](./assets/donor_page.png)
+
+![Donor View](./assets/Screenshot%202026-05-19%20193254.png)
 
 ---
 
