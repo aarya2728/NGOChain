@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getContract } from '../utils/web3';
 import { ethers } from 'ethers';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import { Heart, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 function Donate() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [amount, setAmount] = useState('');
   const [cause, setCause] = useState('Education NGO');
   const [loading, setLoading] = useState(false);
@@ -20,6 +21,15 @@ function Donate() {
 
   const handleDonate = async (e) => {
     e.preventDefault();
+
+    const isWalletConnected = localStorage.getItem('isWalletConnected') === 'true';
+    const hasToken = localStorage.getItem('token');
+    
+    if (!isWalletConnected && !hasToken) {
+      navigate('/login');
+      return;
+    }
+
     if (!amount || isNaN(amount) || Number(amount) <= 0) {
       setStatus('Please enter a valid ETH amount.');
       return;

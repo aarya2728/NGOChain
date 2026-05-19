@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { LogIn } from 'lucide-react';
+import { connectWallet } from '../utils/web3';
 
 function Login() {
   const navigate = useNavigate();
@@ -31,6 +32,28 @@ function Login() {
       setStatus(err.response?.data?.error || 'Invalid credentials');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleMetaMaskLogin = async () => {
+    setStatus('Connecting to MetaMask...');
+    try {
+      const address = await connectWallet();
+      if (address) {
+        setStatus('Wallet connected successfully!');
+        localStorage.setItem('isWalletConnected', 'true');
+        localStorage.setItem('token', 'web3-wallet-auth-' + address);
+        
+        setTimeout(() => {
+          navigate('/dashboard');
+          window.location.reload(); 
+        }, 1000);
+      } else {
+        setStatus('Connection cancelled or failed.');
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus('Failed to connect MetaMask');
     }
   };
 
@@ -80,6 +103,25 @@ function Login() {
             {loading ? 'Processing...' : 'Login'}
           </button>
         </form>
+
+        <div className="flex items-center my-6">
+          <div className="flex-grow border-t border-gray-800"></div>
+          <span className="px-4 text-xs text-gray-500 font-medium">OR</span>
+          <div className="flex-grow border-t border-gray-800"></div>
+        </div>
+
+        <button 
+          onClick={handleMetaMaskLogin}
+          type="button"
+          className="w-full flex items-center justify-center gap-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 py-3.5 rounded-xl font-bold text-gray-200 transition-colors shadow-md"
+        >
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" 
+            alt="MetaMask" 
+            className="h-6 w-6"
+          />
+          Login with MetaMask
+        </button>
 
         <div className="mt-6 text-sm text-gray-400">
           Don't have an account? <Link to="/register" className="text-teal-400 hover:underline font-bold">Sign up</Link>

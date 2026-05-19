@@ -6,12 +6,10 @@ function Home() {
   return (
     <div className="flex flex-col items-center bg-gray-950 text-white min-h-screen">
       {/* Hero Section */}
-      <div className="w-full relative overflow-hidden py-24 px-6 border-b border-gray-800 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-900/40 via-gray-950 to-gray-950">
+      <div className="w-full relative overflow-hidden py-24 px-6 border-b border-gray-800 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-teal-900/40 via-gray-950 to-gray-950">
         <div className="max-w-6xl mx-auto text-center relative z-10 space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-mono mb-4 animate-pulse">
-            <Zap size={14} /> Production-Ready Polygon / Ethereum DApp
-          </div>
-          <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-white via-teal-200 to-blue-400 bg-clip-text text-transparent">
+
+          <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight bg-linear-to-r from-white via-teal-200 to-blue-400 bg-clip-text text-transparent">
             Transparent Crypto Donations <br />for Global Impact.
           </h1>
           <p className="text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
@@ -26,7 +24,7 @@ function Home() {
             </Link>
           </div>
           <div className="pt-12 flex flex-wrap justify-center gap-8 text-xs font-mono text-gray-500">
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-teal-400" /> Ethers.js v6 BrowserProvider</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-teal-400" /> Ethers.js  BrowserProvider</span>
             <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-teal-400" /> AI Verification Badge</span>
             <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-teal-400" /> Immutable EVM Ledger</span>
           </div>
