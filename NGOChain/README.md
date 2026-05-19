@@ -228,14 +228,3 @@ npm run dev
 
 ---
 
-## 🔐 Environment Variables
-
-Create a `.env` file in the `go-backend/` directory:
-
-```env
-PORT=8080
-MONGO_URI=mongodb://localhost:27017
-JWT_SECRET=your_super_secret_signing_key_here
-```
-
----
